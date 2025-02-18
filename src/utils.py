@@ -3,6 +3,10 @@ import sys
 import pickle
 from src.exception import CustomException
 from src.logger import logging
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import r2_score
+
+
 
 def save_object(file_path: str, obj: object) -> None:
     try:
@@ -16,4 +20,29 @@ def save_object(file_path: str, obj: object) -> None:
 
     except Exception as e:
         logging.error(f"Error saving object to {file_path}: {e}")
+        raise CustomException(e, sys.exc_info())
+
+def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
+    try:
+        model_scores ={}
+        for name, (model, param) in models.items():
+            gs = GridSearchCV(model,param, cv=3)
+            gs.fit(X_train, y_train)
+            best_model_param = gs.best_estimator_
+            best_model_param.fit(X_train, y_train)
+
+            y_pred = best_model_param.predict(X_test)
+            R2 = r2_score(y_test, y_pred)
+
+            model_scores[name] = (best_model_param, R2)
+
+            best_model_name = max(model_scores, key=model_scores.get)
+            best_model, best_r2 = model_scores[best_model_name]
+
+            logging.info(f"Best Model: {best_model_name} with R² = {best_r2:.4f}")
+
+        return best_model, model_scores
+    
+
+    except Exception as e:
         raise CustomException(e, sys.exc_info())

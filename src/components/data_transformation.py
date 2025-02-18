@@ -61,7 +61,7 @@ class DataTransformation:
             return preprocessor
     
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys.exc_info())
 
     def data_transformation(self, train_path: str, test_path: str) -> tuple:
         try:
