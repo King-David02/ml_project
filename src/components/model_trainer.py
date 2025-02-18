@@ -94,7 +94,7 @@ class ModelTraining:
 
 
             logging.info("Starting model evaluation")
-            model_report = evaluate_model(X_train=X_train,X_test=X_test, y_train=y_train, y_test=y_test, models= models_params)
+            best_model, r2_score = evaluate_model(X_train=X_train,X_test=X_test, y_train=y_train, y_test=y_test, models= models_params)
             logging.info("Model Training Complete")
 
             predicted =best_model.predict(X_test)
