@@ -43,6 +43,14 @@ def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
 
         return best_model, model_scores
     
+    except Exception as e:
+        raise CustomException(e, sys.exc_info())
+
+
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as obj:
+            pickle.load(file_path)
 
     except Exception as e:
         raise CustomException(e, sys.exc_info())
