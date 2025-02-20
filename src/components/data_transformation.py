@@ -10,12 +10,8 @@ from src.logger import logging
 from src.exception import CustomException
 from src.utils import save_object
 
-logging.info("Data Transformation Started")
 class DataTransformation:
-    logging.info("Inside DataTransformation Constructor")
     def __init__(self, out_dir='artifacts'):
-        logging.info("after DataTransformation Constructor")
-        logging.info("Inside DataTransformation Constructor")
         self.out_dir = out_dir
         self.preprocessor_path = os.path.join(self.out_dir, "preprocessor.pkl")
         logging.info(f"Creating directory: {self.out_dir}")
@@ -82,6 +78,7 @@ class DataTransformation:
 
             input_feature_train_arr = preprocessing.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessing.transform(input_feature_test_df)
+            logging.info("Data Transformation complete")
 
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
