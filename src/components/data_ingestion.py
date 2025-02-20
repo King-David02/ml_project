@@ -8,7 +8,7 @@ from src.exception import CustomException
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTraining
 class DataIngestion:
-    def __init__(self, data_path="notebook/data/StudentsPerformance.csv", output_dir="artifacts"):
+    def __init__(self, data_path="notebook/data/Stud.csv", output_dir="artifacts"):
         self.data_path = data_path
         self.output_dir = output_dir
         self.raw_data_path = os.path.join(self.output_dir, "data.csv")

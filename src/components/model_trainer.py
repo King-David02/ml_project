@@ -99,7 +99,7 @@ class ModelTraining:
 
             predicted =best_model.predict(X_test)
             R2 = r2_score(y_test, predicted)
-            logging.info("R2 score for {best_model} is {R2}")
+            logging.info(f"R2 score for {best_model} is {R2}")
 
             save_object(file_path=self.model_file_path, obj=best_model)
             logging.info("Saved model as a pickle file")

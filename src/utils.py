@@ -25,6 +25,7 @@ def save_object(file_path: str, obj: object) -> None:
 def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
     try:
         model_scores ={}
+        best_model = {}
         for name, (model, param) in models.items():
             gs = GridSearchCV(model,param, cv=3)
             gs.fit(X_train, y_train)
@@ -34,12 +35,14 @@ def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
             y_pred = best_model_param.predict(X_test)
             R2 = r2_score(y_test, y_pred)
 
-            model_scores[name] = (best_model_param, R2)
+            model_scores[name] = R2
+            best_model[name] = best_model_param
 
             best_model_name = max(model_scores, key=model_scores.get)
-            best_model, best_r2 = model_scores[best_model_name]
+            best_models = best_model[best_model_name]
+            best_R2 = model_scores[best_model_name]
 
-            logging.info(f"Best Model: {best_model_name} with R² = {best_r2:.4f}")
+            logging.info(f"Best Model: {best_model_name} with R² = {best_R2:.4f}")
 
         return best_model, model_scores
     
@@ -50,7 +53,7 @@ def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
 def load_object(file_path):
     try:
         with open(file_path, 'rb') as obj:
-            pickle.load(file_path)
+            pickle.load(obj)
 
     except Exception as e:
         raise CustomException(e, sys.exc_info())
