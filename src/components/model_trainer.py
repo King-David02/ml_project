@@ -62,7 +62,7 @@ class ModelTraining:
             'learning_rate': [0.1, 0.01, 0.05, 0.001],
             'subsample': [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
             'criterion': ['squared_error', 'friedman_mse'],
-            'max_features': ['auto', 'sqrt', 'log2'],
+            'max_features': ['sqrt', 'log2'],
             'n_estimators': [8, 16, 32, 64, 128, 256]
             }
             ),
@@ -94,9 +94,11 @@ class ModelTraining:
 
 
             logging.info("Starting model evaluation")
-            best_model, r2_score = evaluate_model(X_train=X_train,X_test=X_test, y_train=y_train, y_test=y_test, models= models_params)
+            best_model, model_score = evaluate_model(X_train=X_train,X_test=X_test, y_train=y_train, y_test=y_test, models= models_params)
             logging.info("Model Training Complete")
 
+            logging.info(f"Best Model Selected: {best_model}")
+            logging.info(f"Best Model Type: {type(best_model)}")
             predicted =best_model.predict(X_test)
             R2 = r2_score(y_test, predicted)
             logging.info(f"R2 score for {best_model} is {R2}")

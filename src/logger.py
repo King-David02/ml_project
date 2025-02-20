@@ -16,5 +16,5 @@ logging.basicConfig(
 )
 
 # Test logging
-logging.info("Logging setup complete.")
-logging.debug("This is a debug message.")
+#logging.info("Logging setup complete.")
+#logging.debug("This is a debug message.")

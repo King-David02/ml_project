@@ -11,8 +11,8 @@ app = application
 def index():
     return render_template('index.html')
 
-@app.route('predictdata',methods=['GET', 'POST'])
-def predicttion():
+@app.route('/predictdata',methods=['GET', 'POST'])
+def predict_datapoint():
     if request.method=='GET':
         return render_template('home.html')
     
@@ -28,8 +28,8 @@ def predicttion():
         )
 
         pred_df = data.data_to_dataframe()
-        predict = PredictPipeline()
-        results = predict(pred_df)
+        predicts = PredictPipeline()
+        results = predicts.predictions(pred_df)
         return render_template('home.html',results=results[0])
     
 

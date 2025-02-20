@@ -38,13 +38,14 @@ def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
             model_scores[name] = R2
             best_model[name] = best_model_param
 
-            best_model_name = max(model_scores, key=model_scores.get)
-            best_models = best_model[best_model_name]
-            best_R2 = model_scores[best_model_name]
+        best_model_name = max(model_scores, key=model_scores.get)
+        best_models = best_model[best_model_name]
+        best_R2 = model_scores[best_model_name]
+        logging.info("Best Model Found")
 
-            logging.info(f"Best Model: {best_model_name} with R² = {best_R2:.4f}")
+        logging.info(f"Best Model: {best_model_name} with R2 = {best_R2:.4f}")
 
-        return best_model, model_scores
+        return best_models, model_scores
     
     except Exception as e:
         raise CustomException(e, sys.exc_info())
@@ -53,7 +54,7 @@ def evaluate_model(X_train, X_test, y_train, y_test, models:dict):
 def load_object(file_path):
     try:
         with open(file_path, 'rb') as obj:
-            pickle.load(obj)
+            return pickle.load(obj)
 
     except Exception as e:
         raise CustomException(e, sys.exc_info())

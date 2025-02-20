@@ -16,7 +16,6 @@ class DataTransformation:
         self.preprocessor_path = os.path.join(self.out_dir, "preprocessor.pkl")
         logging.info(f"Creating directory: {self.out_dir}")
         os.makedirs(self.out_dir, exist_ok=True)
-        logging.info("resume")
         logging.info(f"Directory {self.out_dir} created or already exists.")
 
 
@@ -66,7 +65,6 @@ class DataTransformation:
             logging.info("Read train and test data successfully")
 
             target_column_name = "math_score"
-            #numerical_columns = ["writing_score", "reading_score"]
 
             input_feature_train_df = train_df.drop(columns=[target_column_name], axis=1)
             target_feature_train_df = train_df[target_column_name]
